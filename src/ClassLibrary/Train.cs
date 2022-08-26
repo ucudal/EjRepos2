@@ -18,6 +18,8 @@ namespace ClassLibrary
         /// </summary>
         /// <value><c>true</c> si las máquinas fueron encendidas, <c>false</c> en caso contrario.</value>
         public bool IsEngineStarted { get; private set; }
+        public static int count = 0; //Creo la variable de clase count para contar las veces que se crea una instancia y la hago publica para poder accederla desde el main
+        string Identificador {get; set;}
 
         /// <summary>
         /// Enciende las máquinas del tren.
@@ -55,6 +57,21 @@ namespace ClassLibrary
 
             Console.Write("The engines are already stopped");
             return this.IsEngineStarted;
+        }
+        public Train(string identificador) //Agrego el parametro del identificador
+        {
+            count++;//Agrega +1 al contador
+            this.Identificador = identificador;
+            Console.WriteLine($"CONSTRUCTOR: Creando tren {Identificador} N° {count}");//Msj para saber cuando se ejecuta el constructor
+        }
+        ~Train()
+        {
+            Console.WriteLine($"DESTRUCTOR: Borrando tren {this.Identificador} N° {count}");//Msj para saber cuando se ejecuta el destructor
+            count--; //Se resta 1 del contador
+        } 
+        public override string ToString()
+        {
+            return $"\n Tren {this.Identificador} - Cantidad de trenes actual {count}.";
         }
     }
 }
